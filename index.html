@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>日柱 干支 計算</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Noto Serif JP', serif;
+      text-align: center;
+      padding: 1em;
+      padding-bottom: 150px; /* 固定フッター分のスペースを確保 */
+      background-color: #fefefe;
+      color: #333;
+    }
+    h1 {
+      font-size: 1.5em;
+      margin-bottom: 0.5em;
+      line-height: 1.4;
+    }
+    .profile-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 1em;
+    }
+    .selectors {
+      margin: 1.5em 0;
+    }
+    select, button {
+      padding: 8px 12px;
+      margin: 5px;
+      font-size: 1em;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    button {
+      width: 60%;
+      max-width: 200px;
+      background-color: black;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    #result {
+      font-size: 2.5em;
+      font-weight: bold;
+      margin-top: 0.5em;
+      margin-bottom: 0.5em;
+      line-height: 1.2;
+      color: #000;
+      text-align: center;
+      word-break: break-all;
+    }
+    #comment {
+        font-size: 0.8rem;
+        margin-top: 1em;
+        margin-bottom: 5em; /* 下の間隔を広く確保 */
+        color: #333;
+        max-width: 200px; /* ボタンの最大幅に合わせる */
+        margin-left: auto; /* 中央揃え */
+        margin-right: auto; /* 中央揃え */
+        text-align: center; /* 中央揃え */
+        font-weight: bold;
+        text-wrap: balance;
+    }
+    #kantei-link p {
+        font-size: 0.7em;
+    }
+    #kantei-link a {
+      display: inline-block;
+      margin-top: 0.5em;
+      padding: 3px 8px; /* Adjust padding to make it smaller */
+      background-color: #B80C09;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 0.5em; /* Keep font size consistent */
+      border: 1px solid #ccc;
+      width: auto; /* Allow width to adjust based on content and padding */
+      max-width: 130px; /* Set a max-width to control overall size */
+      box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    }
+  </style>
+</head>
+<body>
+  <h1>命式の前に<br>まずはふた文字</h1>
+  <img src="IMG_0500.jpg" alt="プロフィール画像" class="profile-icon">
+  <p style="font-size: 0.45em; margin-top: -0.5em; margin-bottom: 1.5em; color: #555;">おかゆかお ｜ 四柱推命鑑定師</p>
+
+  <div class="selectors">
+    <select id="year"></select> 年
+    <select id="month"></select> 月
+    <select id="day"></select> 日
+  </div>
+  
+  <button onclick="calculateEto()">あなたの日主は？</button>
+
+  <p id="result"></p>
+  <p id="comment"></p>
+  <div id="kantei-link" style="display: none;">
+    <p>あなたの魅力、もっと知りたくない？</p>
+    <a href="https://lin.ee/D3MSWVt" class="kantei-button">無料鑑定やってます</a>
+  </div>
+
+  <script>
+    const etoArray = [
+      '甲子','乙丑','丙寅','丁卯','戊辰','己巳','庚午','辛未','壬申','癸酉',
+      '甲戌','乙亥','丙子','丁丑','戊寅','己卯','庚辰','辛巳','壬午','癸未',
+      '甲申','乙酉','丙戌','丁亥','戊子','己丑','庚寅','辛卯','壬辰','癸巳',
+      '甲午','乙未','丙申','丁酉','戊戌','己亥','庚子','辛丑','壬寅','癸卯',
+      '甲辰','乙巳','丙午','丁未','戊申','己酉','庚戌','辛亥','壬子','癸丑',
+      '甲寅','乙卯','丙辰','丁巳','戊午','己未','庚申','辛酉','壬戌','癸亥'
+    ];
+
+    const etoComments = {
+      '甲子': '孤高のストイック。群れずに動く一本筋のクールタイプ',
+      '乙丑': '堅実でしなやか。丁寧に積み上げる熟成型の知性派',
+      '丙寅': '春の陽ざしみたいな明るさで、人を惹きつける行動派。思い立ったら即スタート',
+      '丁卯': '静かな情熱を胸に、自分の世界を丁寧に追いかける。感性と信念で生きる人',
+      '戊辰': 'しっかり者に見えて、意外と自由主義。土台は頑固、でも変化を楽しむマイペース型',
+      '己巳': '朗らかなオーラと芯の強さを併せ持つ大器タイプ。ゆるく見えて、やる時はやる',
+      '庚午': '鋭さと情熱を併せ持つ、ブレない合理主義者。曖昧さを嫌い、一直線に突き進む',
+      '辛未': '静かに燃えるこだわり派。控えめに見えて、譲れない芯と美学あり',
+      '壬申': 'クールで柔らか。チャンスを見極めて、静かに流れを変える頭脳派',
+      '癸酉': 'クールに立ち回る現実派。輪の中にいても、判断はいつも自分基準でブレない',
+      '甲戌': '正しさを信じて真っすぐに進む誠実派。繊細な心で、人に親身に寄り添える',
+      '乙亥': '静かな情熱を抱く一匹狼。好きなことには、誰にも負けない集中力を発揮',
+      '丙子': '無邪気でさっぱり。自由な感性と鋭いひらめきで、自分の世界を軽やかに生きる',
+      '丁丑': 'やさしくて頑固。おっとり見えて、実は理想に向かって黙々と燃える努力家',
+      '戊寅': '責任感と行動力で引っ張るリーダータイプ。ちょっと強引、だけど人が集まってくる',
+      '己卯': 'ふんわり見えて、冴える感性。人に見せないところで、いつも空気を読む',
+      '庚辰': '強さと華やかさをあわせ持つ行動派。経験を味方に、まだない道も自分でつくる',
+      '辛巳': '品よくストイック。甘えず妥協せず、自分の正解を真っすぐに追いかける努力家',
+      '壬午': '明るく自由な理想追求型。流れを読む感性と行動力で、枠にとらわれず生きる。',
+      '癸未': 'やわらかな人当たりの奥に、譲らない芯。発想力と冷静さ、誰からも愛される天性の魅力を持つ',
+      '甲申': '直感とひらめきで動く感性派。夢中になれることを見つけると、一気にのめり込む',
+      '乙酉': '生真面目な理想家。さっぱり見えて情もある。直感でチャンスを掴む行動派',
+      '丙戌': 'さっぱりして見えて、芯は強固。人に合わせつつも、自分のスタイルは崩さない',
+      '丁亥': '真面目でまっすぐ、尽くすことに迷いがない。歳を重ねて輝く、芯ある理想家',
+      '戊子': 'どっしり見えて意外と無邪気。掴めないけど裏表がなく、目標があれば一直線',
+      '己丑': '控えめだけど信念は曲げない。自分のリズムで、常に自分の人生を楽しみたい',
+      '庚寅': '気まぐれだけど情に厚い。行動力とチャレンジ精神で、気の向くまま人生を切り拓く',
+      '辛卯': 'まっすぐで妥協を許さない本物志向。静かにコツコツ、理想に挑む職人肌',
+      '壬辰': '冷静な視点と行動力をあわせ持つ、器の大きな人。礼儀を重んじ、信頼を集める存在',
+      '癸巳': '賢くて愛嬌もあるリアリスト。人と関わりながら、洞察力と感性で道を切り拓く',
+      '甲午': '駆け引きは苦手、なんでも真っ向勝負。まっすぐで嘘がなく、言葉も感情もストレート',
+      '乙未': '温和で優しい、でも流されない。協調しながら、自分の芯を丁寧に守っていく人',
+      '丙申': '社交的で楽天的、細かいことは気にしない。世渡り上手な笑顔の裏に、静かな情熱を秘める',
+      '丁酉': '人懐っこくて情に厚い。頼られると放っておけない、繊細でユーモアある人',
+      '戊戌': '温厚でどっしり。でも内面は繊細で、困難ほど底力を発揮する、人の心を動かす芯の強さ',
+      '己亥': 'クールに見えて情が深い一匹狼。逆境にも負けず、自分の感覚を信じてたくましく進む人',
+      '庚子': '繊細で頑固、でもまっすぐ。気になることには全力投球、気が乗らないと一歩も動かない',
+      '辛丑': '自由気ままに見えて、実は芯あり。愛嬌と落ち着きのバランスで、人に信頼されるタイプ',
+      '壬寅': '穏やかで気配り上手。でも人を見る目は鋭い。目標が定まると、自分のペースでまっすぐ進む',
+      '癸卯': '人に合わせるのは得意。でも本音はなかなか見せない。理想を大切に、静かに自分を貫く人',
+      '甲辰': '飾らないのに、なぜか目を引く。どこか達観していて、地に足のついた自由人',
+      '乙巳': '感情のままに一気に動く。華やかで魅力的な、感性で生きる芸術肌',
+      '丙午': '明るく情熱的で人を惹きつける華がある、孤独も抱えながら好きなことに一直線な人',
+      '丁未': '人当たりが柔らかく親しみやすいが実はマイペース。言語能力に長けた感情豊かな人',
+      '戊申': '人懐っこく憎めない、感覚で生きる“自分スタイル”を貫くマイペースタイプ',
+      '己酉': '社交的だが本質はクールで冷静。開拓精神と完璧主義を併せ持ち、自力で道を切り拓く実力派',
+      '庚戌': 'おっとり穏やかで控えめだが負けず嫌い。自分のペースを大事にする用心深い真面目人',
+      '辛亥': '自由を愛する楽天家。繊細な心と天性のスター性を併せ持ち、人を惹きつける魅力の持ち主',
+      '壬戌': '普段はゆったり穏やか、大物感と行動力を備えた自由人、怒ると怖い',
+      '癸丑': 'クールでストイック、感覚鋭く結果が出るまで諦めない、自分のスタイルを貫く人',
+      '甲寅': '曲がったことが嫌いで信念を貫く、孤高のリアリスト。真っ直ぐすぎる誠実さ',
+      '乙卯': '柔らかく見えて芯が強い。几帳面で粘り強く、自分の力を活かせる場所で輝く',
+      '丙辰': '無邪気で今を楽しむ自由人、感性が鋭くどこか冷静な目を持つ強運の持ち主',
+      '丁巳': '穏やかでおおらかだが内なる情熱を秘め、ひらめきで自分の世界を築いていく人。文才あり',
+      '戊午': '穏やかな雰囲気の奥に強い自信と情熱を秘め、現実的に着実にやり遂げる信念の人',
+      '己未': '飾り気なく気さくで誠実、不器用でも芯が強く、好きなことを楽しみながら続けたいタイプ',
+      '庚申': '冷静で理詰め、白黒はっきりさせて突き進む妥協しないパワフルな行動派',
+      '辛酉': '理詰めで合理的、責任感が強く、頼られると断れない面倒見の良さを持つ冷静な人',
+      '壬戌': '直感と知性を武器に、変化を恐れず突き進む、生まれながらのリーダー気質',
+      '癸亥': '素直で繊細、気分屋な一面も持ちつつ、静かな情熱で挑み続けるクールなチャレンジャー'
+    };
+
+    function populateSelectors() {
+      const yearSelect = document.getElementById('year');
+      const monthSelect = document.getElementById('month');
+      const daySelect = document.getElementById('day');
+      const currentYear = new Date().getFullYear();
+
+      for (let y = 1900; y <= currentYear; y++) {
+        yearSelect.innerHTML += `<option value="${y}">${y}</option>`;
+      }
+      yearSelect.value = 1980; // 初期値を1980年に
+
+      for (let m = 1; m <= 12; m++) {
+        monthSelect.innerHTML += `<option value="${m}">${m}</option>`;
+      }
+
+      for (let d = 1; d <= 31; d++) {
+        daySelect.innerHTML += `<option value="${d}">${d}</option>`;
+      }
+    }
+
+    function calculateEto() {
+      const year = document.getElementById('year').value;
+      const month = document.getElementById('month').value.padStart(2, '0');
+      const day = document.getElementById('day').value.padStart(2, '0');
+      const dateStr = `${year}-${month}-${day}T00:00:00Z`;
+
+      const userDate = new Date(dateStr);
+      // 無効な日付（例: 2月31日）でないかチェック
+      if (userDate.getFullYear() != year || userDate.getMonth() + 1 != month.replace(/^0+/, '') || userDate.getDate() != day.replace(/^0+/, '')) {
+          document.getElementById('result').textContent = '正しい日付を選択してください。';
+          document.getElementById('comment').textContent = '';
+          document.getElementById('kantei-link').style.display = 'none';
+          return;
+      }
+
+      const baseDate = new Date('1900-01-01T00:00:00Z');
+      const diffMilliseconds = userDate.getTime() - baseDate.getTime();
+      const elapsedDays = Math.floor(diffMilliseconds / (1000 * 60 * 60 * 24));
+
+      const baseIndex = 10; // 甲戌
+      const etoIndex = (baseIndex + elapsedDays) % 60;
+      const finalIndex = (etoIndex + 60) % 60;
+
+      const dailyEto = etoArray[finalIndex];
+      const comment = etoComments[dailyEto] || 'シンプルに過ごせる日です。';
+
+      document.getElementById('result').textContent = dailyEto;
+      document.getElementById('comment').textContent = comment;
+      document.getElementById('kantei-link').style.display = 'block';
+    }
+
+    populateSelectors();
+  </script>
+
+</body>
+</html>
