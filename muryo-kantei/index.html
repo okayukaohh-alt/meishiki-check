@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>無料ライト鑑定について｜小さな哲学、おどる暦</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700&family=Zen+Old+Mincho:wght@400;500;600&family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
+
+  :root{
+    --ink: #2b2926;
+    --ink-soft: #55504a;
+    --paper: #f6f2ea;
+    --paper-deep: #ece5d6;
+    --line: #cabfa9;
+    --accent: #e87461;
+    --accent-deep: #e87461;
+    --moon: #efe6d2;
+    --card-1: #dcd2b8;
+    --card-2: #cdd6d4;
+    --card-3: #d9a98d;
+  }
+
+  *{ box-sizing: border-box; }
+  html,body{
+    margin:0; padding:0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Noto Sans JP", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  body{
+    background-image:
+      radial-gradient(ellipse 80% 40% at 50% 0%, rgba(138,111,78,0.08), transparent 60%),
+      repeating-linear-gradient(0deg, transparent, transparent 79px, rgba(43,41,38,0.025) 80px);
+  }
+
+  .wrap{ max-width: 480px; margin: 0 auto; padding: 0 24px; position: relative; }
+
+  /* ---------- Header / Hero ---------- */
+  .hero{
+    padding: 64px 0 40px;
+    text-align: center;
+    position: relative;
+  }
+
+  .moonline{
+    width: 1px;
+    height: 32px;
+    background: var(--line);
+    margin: 0 auto 20px;
+  }
+
+  .brand-label{
+    display: inline-block;
+    background: #ffffff;
+    padding: 10px 18px;
+    font-family: "Shippori Mincho", serif;
+    font-size: 14px;
+    letter-spacing: 0.12em;
+    color: var(--accent-deep);
+    position: relative;
+    margin-bottom: 26px;
+    box-shadow: 0 1px 3px rgba(43,41,38,0.08);
+  }
+  .brand-label::after{
+    content:"";
+    position:absolute;
+    left: 14px; right: 14px; bottom: -10px;
+    height: 2px;
+    background: var(--accent);
+  }
+
+  .brand{
+    font-family: "Shippori Mincho", serif;
+    font-weight: 600;
+    font-size: 28px;
+    line-height: 1.55;
+    letter-spacing: 0.06em;
+    margin: 0 0 22px;
+    color: var(--ink);
+  }
+
+  .lede{
+    font-size: 14.5px;
+    line-height: 2.05;
+    color: var(--ink-soft);
+    font-weight: 300;
+    letter-spacing: 0.02em;
+    margin: 0 auto;
+    max-width: 340px;
+  }
+
+  /* portrait icon */
+  .dial{
+    width: 100px; height: 100px;
+    margin: 32px auto 8px;
+    position: relative;
+  }
+  .dial-photo{
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    padding: 12px;
+    object-fit: contain;
+    object-position: center 15%;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 2px 10px rgba(43,41,38,0.10);
+  }
+  .dial-caption{
+    text-align: center;
+    margin: 14px 0 0;
+  }
+  .dial-caption .name{
+    display: block;
+    font-family: "Shippori Mincho", serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--ink);
+    margin-bottom: 3px;
+  }
+  .dial-caption .credential{
+    display: block;
+    font-size: 9.5px;
+    letter-spacing: 0.06em;
+    color: var(--ink-soft);
+  }
+
+  /* ---------- Section divider ---------- */
+  .divider{
+    display:flex; align-items:center; gap:14px;
+    margin: 8px 0 36px;
+    color: var(--accent);
+  }
+  .divider::before, .divider::after{
+    content:""; flex:1; height:1px; background: var(--line);
+  }
+  .divider span{
+    font-family: "Zen Old Mincho", serif;
+    font-size: 11px; letter-spacing: 0.28em;
+    white-space: nowrap;
+  }
+
+  /* ---------- Info box ---------- */
+  .info{
+    background: #ffffff;
+    color: var(--ink);
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    padding: 22px 24px 24px;
+    margin: 8px 0 48px;
+    position: relative;
+    text-align: center;
+  }
+  .info-text{
+    font-size: 13.5px;
+    line-height: 1.95;
+    font-weight: 300;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+
+  /* ---------- Steps ---------- */
+  .steps{
+    display:flex;
+    flex-direction: column;
+    gap: 30px;
+    background: var(--card-1);
+    border: 1px solid rgba(43,41,38,0.12);
+    border-radius: 2px;
+    padding: 28px 24px;
+    margin-bottom: 48px;
+  }
+  .step{
+    display:flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .step-num{
+    flex-shrink: 0;
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: "Shippori Mincho", serif;
+    font-size: 14px;
+    font-weight: 600;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .step-title{
+    font-family: "Shippori Mincho", serif;
+    font-size: 15.5px;
+    font-weight: 600;
+    margin: 3px 0 8px;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+  }
+  .step-text{
+    font-size: 13px;
+    line-height: 1.9;
+    color: var(--ink-soft);
+    font-weight: 300;
+    margin: 0;
+  }
+  .step-list{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .step-list li{
+    font-size: 13px;
+    line-height: 1.9;
+    color: var(--ink-soft);
+    font-weight: 300;
+    padding-left: 14px;
+    position: relative;
+  }
+  .step-list li::before{
+    content: "・";
+    position: absolute;
+    left: 0;
+    color: var(--ink);
+  }
+  .step-link{
+    color: var(--accent-deep);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .step-note{
+    font-size: 11.5px;
+    line-height: 1.8;
+    color: var(--ink-soft);
+    font-weight: 300;
+    margin: 10px 0 0;
+    opacity: 0.85;
+  }
+
+  /* ---------- CTA ---------- */
+  .cta{
+    text-align:center;
+    padding: 40px 0 72px;
+    margin-top: 24px;
+    border-top: 1px dashed var(--line);
+  }
+  .cta-lead{
+    font-family: "Shippori Mincho", serif;
+    font-size: 16px;
+    line-height: 1.9;
+    margin: 0 0 28px;
+    color: var(--ink);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+
+  .cta-buttons{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap: 20px;
+  }
+  .cta-button{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width: 56px;
+    height: 56px;
+    background: var(--ink);
+    color: var(--paper);
+    text-decoration:none;
+    border-radius: 14px;
+    transition: transform 0.25s ease, background 0.25s ease;
+    position: relative;
+  }
+  .cta-button:active{ transform: scale(0.94); }
+  .cta-button svg{ width:22px; height:22px; flex-shrink:0; }
+
+  .cta-labels{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap: 20px;
+    margin-top: 10px;
+  }
+  .cta-labels span{
+    display:block;
+    width: 56px;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: var(--ink-soft);
+    text-align: center;
+  }
+
+  .ig-handle{
+    display:block;
+    margin-top: 20px;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: var(--ink-soft);
+  }
+
+  footer{
+    text-align:center;
+    padding: 0 0 56px;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    color: var(--ink-soft);
+    opacity: 0.65;
+  }
+  .footer-credential{
+    display: block;
+    margin-bottom: 8px;
+  }
+  .footer-copyright{
+    display: block;
+  }
+
+  /* reveal on scroll */
+  .reveal{
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.in{
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <section class="hero">
+    <div class="moonline"></div>
+    <span class="brand-label">小さな哲学、おどる暦</span>
+    <h1 class="brand">無料ライト鑑定について</h1>
+    <p class="lede">
+      ご興味お持ちくださり<br>
+      ありがとうございます🙏<br><br>
+      あなたの命式からわかる特徴を<br>
+      LINEにて簡単にお伝えします📩
+    </p>
+
+    <div class="dial" aria-hidden="true">
+      <img class="dial-photo" src="assets/character.png" alt="">
+    </div>
+    <p class="dial-caption">
+      <span class="name">おかゆかお</span>
+      <span class="credential">ユンスル四柱推命&reg;認定鑑定師</span>
+    </p>
+  </section>
+
+  <div class="divider reveal"><span>鑑定内容</span></div>
+
+  <div class="info reveal">
+    <p class="info-text">
+      無料ライト鑑定では<br>
+      あなたの命式からわかる特徴を<br>
+      LINEにて簡単にお伝えいたします
+    </p>
+  </div>
+
+  <div class="divider reveal"><span>お申し込みの流れ</span></div>
+
+  <div class="steps">
+
+    <div class="step reveal">
+      <span class="step-num">1</span>
+      <div>
+        <h3 class="step-title">Instagramをフォロー</h3>
+        <p class="step-text"><a class="step-link" href="https://www.instagram.com/oka_yukao/" target="_blank" rel="noopener">@oka_yukao</a> をフォローしてください。</p>
+      </div>
+    </div>
+
+    <div class="step reveal">
+      <span class="step-num">2</span>
+      <div>
+        <h3 class="step-title">公式LINEで必要事項を送信</h3>
+        <ul class="step-list">
+          <li>生年月日</li>
+          <li>性別</li>
+          <li>出生時刻（午前・午後がわかるように）</li>
+          <li>出生場所（都道府県と市）</li>
+        </ul>
+        <p class="step-note">⚠️出生時刻がわからない場合は、占い結果の精度が落ちてしまうことをご了承ください。</p>
+      </div>
+    </div>
+
+    <div class="step reveal">
+      <span class="step-num">3</span>
+      <div>
+        <h3 class="step-title">返信をお待ちください</h3>
+        <p class="step-text">一週間以内にLINEにてご返信いたします。</p>
+      </div>
+    </div>
+
+  </div>
+
+  <section class="cta reveal">
+    <p class="cta-lead">ご希望の方は<br>こちらから👇</p>
+    <div class="cta-buttons">
+      <a class="cta-button" href="https://www.instagram.com/oka_yukao/" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+          <rect x="3" y="3" width="18" height="18" rx="5"/>
+          <circle cx="12" cy="12" r="4"/>
+          <circle cx="17.2" cy="6.8" r="0.6" fill="currentColor" stroke="none"/>
+        </svg>
+      </a>
+      <a class="cta-button" href="https://lin.ee/cY6dF1k" target="_blank" rel="noopener" aria-label="LINE">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+          <path d="M4 5h16v11H9l-4 4v-4H4V5z" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+    <div class="cta-labels">
+      <span>Instagram</span>
+      <span>LINE</span>
+    </div>
+    <span class="ig-handle">@oka_yukao｜四柱推命で"自分を知り、運を動かす"鑑定師</span>
+  </section>
+
+  <footer>
+    <span class="footer-credential">ユンスル四柱推命®認定鑑定師</span>
+    <span class="footer-copyright">&copy; おかゆかお</span>
+  </footer>
+
+</div>
+
+<script>
+  const els = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  els.forEach(el=> io.observe(el));
+</script>
+
+</body>
+</html>
