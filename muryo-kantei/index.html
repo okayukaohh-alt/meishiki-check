@@ -321,6 +321,163 @@
     display: block;
   }
 
+  /* ---------- Form ---------- */
+  [hidden]{ display:none !important; }
+  .form{
+    background: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    padding: 26px 22px 28px;
+    margin: 8px 0 24px;
+  }
+  .field{ margin: 0 0 24px; padding: 0; border: 0; min-width: 0; }
+  .field-label{
+    display: block;
+    font-family: "Shippori Mincho", serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    margin: 0 0 10px;
+    padding: 0;
+  }
+  .req{
+    font-family: "Noto Sans JP", sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    color: #ffffff;
+    background: var(--accent);
+    padding: 2px 6px;
+    border-radius: 2px;
+    margin-left: 8px;
+    vertical-align: 2px;
+    letter-spacing: 0.04em;
+  }
+  .row{ display: flex; flex-wrap: wrap; gap: 6px 8px; align-items: center; }
+  .unit{ font-size: 13px; color: var(--ink-soft); margin-right: 4px; }
+  .form select,
+  .form input[type="text"],
+  .form input[type="time"]{
+    font: inherit;
+    font-size: 16px;
+    color: var(--ink);
+    background-color: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 9px 12px;
+    min-height: 44px;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  .form select{
+    padding-right: 28px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%2355504a' stroke-width='1.4'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+  }
+  .form input[type="text"]{ width: 100%; }
+  .form input[type="time"]{ min-width: 8.5em; }
+  .form input:disabled{ opacity: 0.45; }
+  .form select:focus-visible,
+  .form input:focus-visible,
+  .choice:focus-within{ outline: 2px solid var(--accent); outline-offset: 1px; }
+
+  .choices{ display: flex; gap: 10px; }
+  .choice{
+    flex: 1;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    background: var(--paper);
+    font-size: 15px;
+    cursor: pointer;
+  }
+  .choice input{ position: absolute; opacity: 0; pointer-events: none; }
+  .choice:has(input:checked){ background: var(--ink); border-color: var(--ink); color: var(--paper); }
+
+  .check{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 12px;
+    font-size: 13px;
+    color: var(--ink-soft);
+    cursor: pointer;
+  }
+  .check input{ width: 18px; height: 18px; margin: 0; accent-color: var(--ink); }
+  .pref-row{ margin-bottom: 8px; }
+
+  .form-error{
+    font-size: 12.5px;
+    line-height: 1.8;
+    color: #b8432f;
+    margin: 0 0 14px;
+  }
+  .submit{
+    display: block;
+    width: 100%;
+    min-height: 52px;
+    border: 0;
+    border-radius: 6px;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: "Shippori Mincho", serif;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+  .submit:active{ transform: scale(0.98); }
+  .submit:disabled{ opacity: 0.6; }
+  .form-foot{
+    font-size: 11.5px;
+    line-height: 1.8;
+    color: var(--ink-soft);
+    text-align: center;
+    margin: 14px 0 0;
+  }
+
+  .done{
+    background: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    padding: 30px 22px;
+    margin: 8px 0 24px;
+    text-align: center;
+  }
+  .done-title{
+    font-family: "Shippori Mincho", serif;
+    font-size: 17px;
+    font-weight: 600;
+    margin: 0 0 12px;
+  }
+  .done-text{
+    font-size: 13px;
+    line-height: 1.9;
+    color: var(--ink-soft);
+    margin: 0 0 18px;
+  }
+  .done textarea{
+    width: 100%;
+    min-height: 130px;
+    font: inherit;
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--ink);
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 10px 12px;
+    margin: 0 0 18px;
+    resize: vertical;
+  }
+  .done .submit{ text-decoration: none; display: flex; align-items: center; justify-content: center; }
+
   /* reveal on scroll */
   .reveal{
     opacity: 0;
@@ -382,11 +539,11 @@
     <div class="step reveal">
       <span class="step-num">2</span>
       <div>
-        <h3 class="step-title">公式LINEで必要事項を送信</h3>
+        <h3 class="step-title">下のフォームから必要事項を送信</h3>
         <ul class="step-list">
           <li>生年月日</li>
           <li>性別</li>
-          <li>出生時刻（午前・午後がわかるように）</li>
+          <li>出生時刻</li>
           <li>出生場所（都道府県と市）</li>
         </ul>
         <p class="step-note">⚠️出生時刻がわからない場合は、占い結果の精度が落ちてしまうことをご了承ください。</p>
@@ -403,8 +560,59 @@
 
   </div>
 
+  <div class="divider reveal"><span>お申し込みフォーム</span></div>
+
+  <form class="form" id="applyForm" novalidate>
+    <fieldset class="field">
+      <legend class="field-label">生年月日<span class="req">必須</span></legend>
+      <div class="row">
+        <select id="bYear" aria-label="生まれた年"><option value="">----</option></select><span class="unit">年</span>
+        <select id="bMonth" aria-label="生まれた月"><option value="">--</option></select><span class="unit">月</span>
+        <select id="bDay" aria-label="生まれた日"><option value="">--</option></select><span class="unit">日</span>
+      </div>
+    </fieldset>
+
+    <fieldset class="field">
+      <legend class="field-label">性別<span class="req">必須</span></legend>
+      <div class="choices">
+        <label class="choice"><input type="radio" name="gender" value="女性">女性</label>
+        <label class="choice"><input type="radio" name="gender" value="男性">男性</label>
+      </div>
+    </fieldset>
+
+    <fieldset class="field">
+      <legend class="field-label">出生時刻<span class="req">必須</span></legend>
+      <input type="time" id="bTime" aria-label="出生時刻">
+      <label class="check"><input type="checkbox" id="timeUnknown">出生時刻がわからない</label>
+    </fieldset>
+
+    <fieldset class="field">
+      <legend class="field-label">出生場所<span class="req">必須</span></legend>
+      <div class="row pref-row">
+        <select id="bPref" aria-label="都道府県"><option value="">都道府県を選択</option></select>
+      </div>
+      <input type="text" id="bCity" placeholder="市区町村（例：横浜市）" aria-label="市区町村">
+    </fieldset>
+
+    <p class="form-error" id="formError" role="alert" hidden></p>
+    <button type="submit" class="submit" id="submitBtn">内容をコピーしてLINEを開く</button>
+    <p class="form-foot" id="formFoot">入力内容をコピーします。LINEのトークに貼り付けて送信してください。</p>
+  </form>
+
+  <div class="done" id="doneSent" hidden>
+    <p class="done-title">送信しました🙏</p>
+    <p class="done-text">お申し込みありがとうございます。<br>一週間以内にLINEにてご返信いたします。</p>
+  </div>
+
+  <div class="done" id="doneCopy" hidden>
+    <p class="done-title">あと少しで完了です</p>
+    <p class="done-text" id="copyMsg">申込内容をコピーしました。<br>LINEのトークに貼り付けて送信してください。</p>
+    <textarea id="copyText" readonly aria-label="申込内容"></textarea>
+    <a class="submit" href="https://lin.ee/cY6dF1k" target="_blank" rel="noopener">LINEを開く</a>
+  </div>
+
   <section class="cta reveal">
-    <p class="cta-lead">ご希望の方は<br>こちらから👇</p>
+    <p class="cta-lead">Instagram・公式LINEは<br>こちらから👇</p>
     <div class="cta-buttons">
       <a class="cta-button" href="https://www.instagram.com/oka_yukao/" target="_blank" rel="noopener" aria-label="Instagram">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
@@ -444,6 +652,135 @@
     });
   }, { threshold: 0.15 });
   els.forEach(el=> io.observe(el));
+</script>
+
+<script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+<script>
+  // ↓ LINE Developersで発行された「LIFF ID」をここに入れる（空のままだと「コピーしてLINEを開く」方式で動きます）
+  const LIFF_ID = '2011762756-fOc9WXbE';
+
+  const $ = (id) => document.getElementById(id);
+  const form = $('applyForm');
+  const submitBtn = $('submitBtn');
+  const formFoot = $('formFoot');
+  const formError = $('formError');
+  let canSend = false;
+
+  // 選択肢を作る
+  const addOptions = (sel, from, to) => {
+    for (let i = from; i <= to; i++) sel.add(new Option(i, i));
+  };
+  addOptions($('bYear'), 1940, new Date().getFullYear());
+  addOptions($('bMonth'), 1, 12);
+  addOptions($('bDay'), 1, 31);
+  ['北海道','青森県','岩手県','宮城県','秋田県','山形県','福島県','茨城県','栃木県','群馬県','埼玉県','千葉県','東京都','神奈川県','新潟県','富山県','石川県','福井県','山梨県','長野県','岐阜県','静岡県','愛知県','三重県','滋賀県','京都府','大阪府','兵庫県','奈良県','和歌山県','鳥取県','島根県','岡山県','広島県','山口県','徳島県','香川県','愛媛県','高知県','福岡県','佐賀県','長崎県','熊本県','大分県','宮崎県','鹿児島県','沖縄県','海外']
+    .forEach(p => $('bPref').add(new Option(p, p)));
+
+  $('timeUnknown').addEventListener('change', (e) => {
+    $('bTime').disabled = e.target.checked;
+  });
+
+  function updateMode() {
+    if (canSend) {
+      submitBtn.textContent = 'LINEで送信する';
+      formFoot.textContent = '送信すると、入力内容がこのトークに送られます。';
+    }
+  }
+
+  async function setupLiff() {
+    if (!LIFF_ID || !window.liff) return;
+    try {
+      await liff.init({ liffId: LIFF_ID });
+      const ctx = liff.getContext();
+      canSend = liff.isInClient() && !!ctx && ['utou', 'room', 'group'].includes(ctx.type);
+    } catch (e) {
+      canSend = false;
+    }
+    updateMode();
+  }
+  setupLiff();
+
+  function formatTime(v) {
+    const [h, m] = v.split(':').map(Number);
+    const ampm = h < 12 ? '午前' : '午後';
+    const h12 = h % 12;
+    return `${h}時${String(m).padStart(2, '0')}分（${ampm}${h12}時${m}分）`;
+  }
+
+  function buildMessage() {
+    const y = $('bYear').value, mo = $('bMonth').value, d = $('bDay').value;
+    const gender = form.querySelector('input[name="gender"]:checked');
+    const unknown = $('timeUnknown').checked;
+    const time = $('bTime').value;
+    const pref = $('bPref').value, city = $('bCity').value.trim();
+
+    const errors = [];
+    const date = new Date(y, mo - 1, d);
+    if (!y || !mo || !d) errors.push('生年月日');
+    else if (date.getMonth() !== mo - 1) errors.push('生年月日（存在しない日付です）');
+    if (!gender) errors.push('性別');
+    if (!unknown && !time) errors.push('出生時刻（わからない場合はチェックを入れてください）');
+    if (!pref || !city) errors.push('出生場所');
+    if (errors.length) return { errors };
+
+    const text = [
+      '【無料ライト鑑定のお申し込み】',
+      `生年月日：${y}年${mo}月${d}日`,
+      `性別：${gender.value}`,
+      `出生時刻：${unknown ? 'わからない' : formatTime(time)}`,
+      `出生場所：${pref}${city}`
+    ].join('\n');
+    return { text };
+  }
+
+  async function copyText(text) {
+    try {
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch (e) {
+      const ta = $('copyText');
+      ta.value = text;
+      ta.select();
+      try { return document.execCommand('copy'); } catch (_) { return false; }
+    }
+  }
+
+  function show(id) {
+    form.hidden = true;
+    $(id).hidden = false;
+    $(id).scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const { text, errors } = buildMessage();
+    if (errors) {
+      formError.textContent = '次の項目を入力してください：' + errors.join('、');
+      formError.hidden = false;
+      return;
+    }
+    formError.hidden = true;
+
+    if (canSend) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = '送信中…';
+      try {
+        await liff.sendMessages([{ type: 'text', text }]);
+        show('doneSent');
+        setTimeout(() => liff.closeWindow(), 1800);
+        return;
+      } catch (err) {
+        // 送信を許可されなかった場合などは、コピー方式に切り替える
+        canSend = false;
+        submitBtn.disabled = false;
+      }
+    }
+
+    $('copyText').value = text;
+    const ok = await copyText(text);
+    if (!ok) $('copyMsg').innerHTML = '下の内容をコピーして、<br>LINEのトークに貼り付けて送信してください。';
+    show('doneCopy');
+  });
 </script>
 
 </body>
