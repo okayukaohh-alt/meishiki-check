@@ -77,22 +77,28 @@
         text-wrap: balance;
     }
     #kantei-link p {
-        font-size: 0.7em;
+        font-size: 0.85em;
+        line-height: 1.7;
+    }
+    #kantei-link p.kantei-note {
+        font-size: 0.72em;
+        color: #555;
+        margin-top: 0.8em;
     }
     #kantei-link a {
       display: inline-block;
       margin-top: 0.5em;
-      padding: 3px 8px; /* Adjust padding to make it smaller */
+      padding: 10px 22px;
       background-color: #B80C09;
       color: #fff;
       text-decoration: none;
       border-radius: 8px;
       font-weight: bold;
-      font-size: 0.5em; /* Keep font size consistent */
+      font-size: 0.9em;
       border: 1px solid #ccc;
-      width: auto; /* Allow width to adjust based on content and padding */
-      max-width: 130px; /* Set a max-width to control overall size */
-      box-sizing: border-box; /* Include padding and border in the element's total width and height */
+      width: auto;
+      max-width: 280px;
+      box-sizing: border-box;
     }
   </style>
 </head>
@@ -113,8 +119,9 @@
   <p id="result-furigana"></p>
   <p id="comment"></p>
   <div id="kantei-link" style="display: none;">
-    <p>あなたの魅力、もっと知りたくない？</p>
-    <a href="https://lin.ee/D3MSWVt" class="kantei-button">無料鑑定やってます</a>
+    <p>ここまでは「日柱」だけでわかること<br>命式全体から、あなたのことを<br>もっと深く知ってみませんか？</p>
+    <a href="https://lin.ee/D3MSWVt" class="kantei-button">無料ライト鑑定はこちら</a>
+    <p class="kantei-note">公式LINEを追加して<br>メニューの「無料ライト鑑定」からお申し込みください</p>
   </div>
 
   <script>
